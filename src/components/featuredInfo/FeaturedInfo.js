@@ -49,121 +49,124 @@ export default function FeaturedInfo() {
   //const classes = useStyles();
   
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={6} sm={3} lg={3} >
-      <Box ml={1} mt={2}  style={{width:"220px",boxShadow:"5px 20px 20px 5px #8860CD"}} >
-      <Box bgcolor="orange" color="white" >
-      <CardContent style={{ display: "flex",flexDirection:"column", justifyContent: "center", alignItems: "center"  }}>
-          <Typography style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-            Running Hours  
-          </Typography>
-          <Box style={{display:"flex",alignItems:"center"}}>
-              <Typography>
-                  464
-              </Typography>
-              <ArrowDownward style={{color:"red",marginLeft:"30px"}}/>
-          </Box>
-          <Typography  >
-              Compared to last month
-          </Typography>
-          </CardContent>
-          </Box>
+    <div>
+      <h1>Dashboard under construction</h1>
+    </div>
+  //   <Grid container spacing={1}>
+  //     <Grid item xs={6} sm={3} lg={3} >
+  //     <Box ml={1} mt={2}  style={{width:"220px",boxShadow:"5px 20px 20px 5px #8860CD"}} >
+  //     <Box bgcolor="orange" color="white" >
+  //     <CardContent style={{ display: "flex",flexDirection:"column", justifyContent: "center", alignItems: "center"  }}>
+  //         <Typography style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+  //           Running Hours  
+  //         </Typography>
+  //         <Box style={{display:"flex",alignItems:"center"}}>
+  //             <Typography>
+  //                 464
+  //             </Typography>
+  //             <ArrowDownward style={{color:"red",marginLeft:"30px"}}/>
+  //         </Box>
+  //         <Typography  >
+  //             Compared to last month
+  //         </Typography>
+  //         </CardContent>
+  //         </Box>
 
-          </Box>
+  //         </Box>
     
-   </Grid>
-   <Grid item xs={6} sm={3} lg={3} >
-   <Box ml={1} mt={2}  style={{width:"220px",boxShadow:"5px 20px 20px 5px #8860CD"}} >
-      <Box bgcolor="dodgerblue" color="white">
-      <CardContent style={{ display: "flex",flexDirection:"column", justifyContent: "center", alignItems: "center"  }}>
-          <Typography style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-            Water Pumped 
-          </Typography>
-          <Box style={{display:"flex",alignItems:"center"}}>
-              <Typography>
-                  464
-              </Typography>
-              <ArrowUpward style={{color:"green",marginLeft:"30px"}}/>
-          </Box>
-          <Typography >
-              Compared to last month
-          </Typography>
-          </CardContent>
-          </Box>
+  //  </Grid>
+  //  <Grid item xs={6} sm={3} lg={3} >
+  //  <Box ml={1} mt={2}  style={{width:"220px",boxShadow:"5px 20px 20px 5px #8860CD"}} >
+  //     <Box bgcolor="dodgerblue" color="white">
+  //     <CardContent style={{ display: "flex",flexDirection:"column", justifyContent: "center", alignItems: "center"  }}>
+  //         <Typography style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+  //           Water Pumped 
+  //         </Typography>
+  //         <Box style={{display:"flex",alignItems:"center"}}>
+  //             <Typography>
+  //                 464
+  //             </Typography>
+  //             <ArrowUpward style={{color:"green",marginLeft:"30px"}}/>
+  //         </Box>
+  //         <Typography >
+  //             Compared to last month
+  //         </Typography>
+  //         </CardContent>
+  //         </Box>
 
-          </Box>
-   </Grid>
+  //         </Box>
+  //  </Grid>
 
-   <Grid item xs={6} sm={3} lg={3}>
-   <Box ml={1} mt={2}  style={{width:"220px",boxShadow:"5px 20px 20px 5px #8860CD"}} >
-      <Box bgcolor="orange" color="white">
-      <CardContent style={{ display: "flex",flexDirection:"column", justifyContent: "center", alignItems: "center"  }}>
-          <Typography style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-            Energy Generated
-          </Typography>
-          <Box style={{display:"flex",alignItems:"center"}}>
-              <Typography>
-                  464
-              </Typography>
-              <ArrowUpward style={{color:"green",marginLeft:"30px"}}/>
-          </Box>
-          <Typography >
-              Compared to last month
-          </Typography>
-          </CardContent>
-          </Box>
+  //  <Grid item xs={6} sm={3} lg={3}>
+  //  <Box ml={1} mt={2}  style={{width:"220px",boxShadow:"5px 20px 20px 5px #8860CD"}} >
+  //     <Box bgcolor="orange" color="white">
+  //     <CardContent style={{ display: "flex",flexDirection:"column", justifyContent: "center", alignItems: "center"  }}>
+  //         <Typography style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+  //           Energy Generated
+  //         </Typography>
+  //         <Box style={{display:"flex",alignItems:"center"}}>
+  //             <Typography>
+  //                 464
+  //             </Typography>
+  //             <ArrowUpward style={{color:"green",marginLeft:"30px"}}/>
+  //         </Box>
+  //         <Typography >
+  //             Compared to last month
+  //         </Typography>
+  //         </CardContent>
+  //         </Box>
 
-          </Box>
+  //         </Box>
 
-   </Grid>
+  //  </Grid>
 
-   <Grid item xs={6} sm={3} lg={3}>
+  //  <Grid item xs={6} sm={3} lg={3}>
        
-   <Box ml={1} mt={2} style={{width:"200px",boxShadow:"5px 20px 20px 5px #8860CD"}} >
-        <Box bgcolor="dodgerblue" color="white">
-       <CardContent style={{ display: "flex",flexDirection:"column", justifyContent: "center", alignItems: "center"  }}>
-         <Typography style={{ display: "flex", justifyContent: "center", alignItems: "center"  }} >Device Data</Typography>
+  //  <Box ml={1} mt={2} style={{width:"200px",boxShadow:"5px 20px 20px 5px #8860CD"}} >
+  //       <Box bgcolor="dodgerblue" color="white">
+  //      <CardContent style={{ display: "flex",flexDirection:"column", justifyContent: "center", alignItems: "center"  }}>
+  //        <Typography style={{ display: "flex", justifyContent: "center", alignItems: "center"  }} >Device Data</Typography>
          
-         <Box display="flex" justifyContent="center" alignItems="center">
-           <Box >
-             <Box display="flex" justifyContent="center" alignItems="center">
-               <Typography>ON :</Typography>
-               <Typography>5</Typography>
-             </Box>
-             <Box display="flex" justifyContent="center" alignItems="center">
-               <Typography>OFF :</Typography>
-               <Typography>8</Typography>
-             </Box>
-           </Box>
+  //        <Box display="flex" justifyContent="center" alignItems="center">
+  //          <Box >
+  //            <Box display="flex" justifyContent="center" alignItems="center">
+  //              <Typography>ON :</Typography>
+  //              <Typography>5</Typography>
+  //            </Box>
+  //            <Box display="flex" justifyContent="center" alignItems="center">
+  //              <Typography>OFF :</Typography>
+  //              <Typography>8</Typography>
+  //            </Box>
+  //          </Box>
            
     
-        <Divider style={{marginLeft:"15px",height:"40px",width:"3px",backgroundColor:"grey"}} orientation="vertical"/>
-        <Box ml={2} >
-          <Box display="flex" justifyContent="center" alignItems="center" width="450">
-            <Typography>OnLine :</Typography>
-            <Typography>5</Typography>
-          </Box>
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Typography>OffLine :</Typography>
-            <Typography>8</Typography>
-          </Box>
-        </Box>
-        </Box>
+  //       <Divider style={{marginLeft:"15px",height:"40px",width:"3px",backgroundColor:"grey"}} orientation="vertical"/>
+  //       <Box ml={2} >
+  //         <Box display="flex" justifyContent="center" alignItems="center" width="450">
+  //           <Typography>OnLine :</Typography>
+  //           <Typography>5</Typography>
+  //         </Box>
+  //         <Box display="flex" justifyContent="center" alignItems="center">
+  //           <Typography>OffLine :</Typography>
+  //           <Typography>8</Typography>
+  //         </Box>
+  //       </Box>
+  //       </Box>
 
                  
-              </CardContent>
-              </Box>
-              </Box>
+  //             </CardContent>
+  //             </Box>
+  //             </Box>
               
         
               
 
    
-     </Grid>
+  //    </Grid>
      
 
 
-    </Grid>
+  //   </Grid>
   );
 }
     

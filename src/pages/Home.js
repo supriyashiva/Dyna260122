@@ -13,6 +13,7 @@ import Layout from '../components/Layout';
 import Devicedetail from '../components/Devicedetail';
 import Cardtab from '../components/Cardtab';
 import Cardtabdisp from '../components/Cardtabdisp';
+import CreateReportform from './CreateReportform';
 
 function Home() {
 
@@ -44,6 +45,9 @@ function Home() {
                     </Route>
                     <Route path="/CreateEntityForm">
                         < CreateEntityForm />
+                    </Route>
+                    <Route path="/CreateReportform">
+                        < CreateReportform/>
                     </Route>
                     <Route path="/devicedetail">
                         < Devicedetail />

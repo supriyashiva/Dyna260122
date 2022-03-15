@@ -7,7 +7,7 @@ import { auth } from '../firebase';
 function MyAppbar() {
     const classes = useStyles();
     return (
-        <AppBar className={classes.appbar}>
+        <AppBar style={{backgroundColor:"#009688"}} className={classes.appbar}>
             <Toolbar>
                 <Typography className={classes.date}>
                     Today is the {format(new Date(), 'do MMMM Y')}
@@ -16,9 +16,10 @@ function MyAppbar() {
                     variant="contained"
                     onClick={() => auth.signOut()} >Logout</Button>
                 <Typography className={classes.avatar}>
-                    Tejas
+                    Admin
                 </Typography>
-                <Avatar src='/Tejas.jpeg' className={classes.avatar} />
+                {/* src='/Tejas.jpeg' */}
+                <Avatar src='/.jpeg' className={classes.avatar} />
             </Toolbar>
         </AppBar>
     )

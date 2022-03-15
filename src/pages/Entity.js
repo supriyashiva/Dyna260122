@@ -37,7 +37,7 @@ function Entity() {
     return (
         <>
             <Container maxWidth="lg">
-                <h1>Entity Page</h1>
+                <h1>Day Book Page</h1>
                 <Grid container spacing={3}>
                     <Grid item xs={12} >
                         <Button
@@ -46,7 +46,7 @@ function Entity() {
                             color="secondary"
                             variant="contained"
                             endIcon={<KeyboardArrowRightIcon />}>
-                            Create Entity
+                            Create Book
                     </Button>
                     </Grid>
                     {info.map(item => (

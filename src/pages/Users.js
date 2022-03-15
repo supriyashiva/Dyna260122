@@ -7,35 +7,45 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import UserCard from '../components/UserCard';
 import db from '../firebase';
 import { DataGrid } from "@material-ui/data-grid";
-import { PieChart, Pie } from "recharts";
+//import { PieChart, Pie } from "recharts";
 
 
-const data = [
-    { name: "Geeksforgeeks", students: 400 },
-    { name: "Technical scripter", students: 700 },
-];
+// const data = [
+//     { name: "Geeksforgeeks", students: 400 },
+//     { name: "Technical scripter", students: 700 },
+// ];
+
 
 const columns = [
+    { field: 'id', headerName: 'ID', width: 90 },
     {
-        field: "UserName",
-        headerName: "User Name",
+        field: "User Name",
+        headerName: "Court name",
         width: 150,
+        
     },
     {
         field: "EmailId",
-        headerName: "Email Id",
+        headerName: "Court rank",
         width: 200,
     },
     {
         field: "Entity",
-        headerName: "Entity",
+        headerName: "Court hall",
         width: 150,
     },
     {
         field: "Role",
-        headerName: "Role",
+        headerName: "Court location",
         width: 200,
     },
+
+];
+const rows = [
+    { id: 1, UserName: 'Snow', EmailId: 'Jon', Entity: 35 },
+    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
+    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
+    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
 
 ];
 
@@ -75,8 +85,8 @@ function User() {
 
     return (
         <>
-            <Container maxWidth="lg">
-                <h1>User Page</h1>
+            <Container  maxWidth="lg">
+                <h1>Case file Page</h1>
                 <Grid container spacing={3}>
                     <Grid item xs={12} >
                         <Button
@@ -85,35 +95,31 @@ function User() {
                             color="secondary"
                             variant="contained"
                             endIcon={<KeyboardArrowRightIcon />}>
-                            Create User
+                            Create File
                     </Button>
                     </Grid>
 
-                    <Grid item xs={9} >
-                        <DataGrid width={100} rows={info} columns={columns} pageSize={5} />
+                    <Grid item xs={10} >
+                     <div style={{ height: 400, width: '100%' }}> 
+                        <DataGrid width={100} rows={info}  columns={columns} pageSize={5} />
+                         </div> 
                     </Grid>
-                    <Grid item xs={3} >
-                        <PieChart width={200} height={400}>
-                            <Pie
-                                data={data}
-                                dataKey="students"
-                                outerRadius={100}
-                                fill="green"
-                            />
-                        </PieChart>
+                    
+                    
+                      
+                    
 
 
-                    </Grid>
-
-                    {info.map(item => (
+                    
+                     {/* {info.map(item => (
                         <Grid item xs={12} md={6} lg={4} key={info.UserName}>
                             <UserCard data={item} handleDelete={handleDelete} />
                         </Grid>
-                    ))}
+                    ))}  */}
 
                 </Grid>
             </Container>
-        </>
+         </>
     )
 }
 export default User;

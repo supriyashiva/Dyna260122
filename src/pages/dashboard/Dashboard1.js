@@ -76,7 +76,7 @@ function Dashboard1() {
             <div>
                 <FeaturedInfo details={details} />
             </div>
-            <div className="secondline">
+            {/* <div className="secondline">
                 <Grid container spacing={3}>
                     <Grid item xs={6} sm={8}>
                         <Paper>
@@ -134,7 +134,7 @@ function Dashboard1() {
             <div className="homeWidgets">
                 <WidgetSm />
                 <WidgetLg />
-            </div>
+            </div> */}
         </div>
     );
 }

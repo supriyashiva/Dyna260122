@@ -1,16 +1,21 @@
-import firebase from "firebase"
-const firebaseConfig = {
-    apiKey: "AIzaSyDOc-hYxuE4qwpE6QfNgHXeVtHUMVkTBTQ",
-    authDomain: "nov22-3c43a.firebaseapp.com",
-    databaseURL: "https://nov22-3c43a-default-rtdb.firebaseio.com",
-    projectId: "nov22-3c43a",
-    storageBucket: "nov22-3c43a.appspot.com",
-    messagingSenderId: "158044583367",
-    appId: "1:158044583367:web:9ad3f4fce1b53205a615e2"
-};
+import firebase from "firebase";
+import "firebase/auth";
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseConfig = {
+  
+    apiKey: "AIzaSyDJFHANRyvi0Vs8O8MCuqUTamAtOUXWGFA",
+    authDomain: "nyayvadi-e7e57.firebaseapp.com",
+    databaseURL: "https://nyayvadi-e7e57-default-rtdb.firebaseio.com",
+    projectId: "nyayvadi-e7e57",
+    storageBucket: "nyayvadi-e7e57.appspot.com",
+    messagingSenderId: "376430168010",
+    appId: "1:376430168010:web:b31a8e5aea64e513f27133"
+  
+};
+firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const auth = firebase.auth();
-export { auth };
+
+const auth= firebase.auth();
+export {auth};
+  
 export default db;
