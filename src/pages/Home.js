@@ -14,6 +14,7 @@ import Devicedetail from '../components/Devicedetail';
 import Cardtab from '../components/Cardtab';
 import Cardtabdisp from '../components/Cardtabdisp';
 import CreateReportform from './CreateReportform';
+import CreateClientEdit from './CreateClientEdit';
 
 function Home() {
 
@@ -39,6 +40,9 @@ function Home() {
                     </Route>
                     <Route path="/cdf">
                         < CreateDeviceForm />
+                    </Route>
+                    <Route path="/edit">
+                        <CreateClientEdit/>
                     </Route>
                     <Route path="/CreateUserForm">
                         < CreateUserForm />

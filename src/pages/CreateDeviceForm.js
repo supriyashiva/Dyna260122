@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useLayoutEffect, label } from "react";
+import React, { useState, useEffect, useLayoutEffect, label } from "react";
 import {
   Typography,
   Container,
@@ -15,11 +15,12 @@ import TextField from "@material-ui/core/TextField";
 //import MenuItem from "@material-ui/core/MenuItem";
 import firebase from "firebase";
 import db from "../firebase";
-import { collection, getDocs,query } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 
 import { useHistory } from "react-router-dom";
 
 import useStyles from "../components/MyStyle";
+import { format } from "date-fns";
 
 function CreateDeviceForm() {
   const classes = useStyles();
@@ -36,37 +37,51 @@ function CreateDeviceForm() {
   const [adharnumber, setAdharNumber] = useState("");
 
   const [clientid, setClientId] = useState("");
-useEffect(() => {
-    db.collection("example")
-       .get()
-       .then((querySnapshot) => {
-         //Loop through the data and store
-         //it in array to display
-         querySnapshot.forEach((doc) => {
-           //var data = element.data();
-           var data=doc.data().clientname;
-           var data1=doc.data().contact;
-           setClientname((arr) => [...arr, data]);
-           setContact((arr) => [...arr, data1]);
-           //console.log(doc.data().clientname);
-         });
+  // useEffect(() => {
+  //     db.collection("example")
+  //        .get()
+  //        .then((querySnapshot) => {
+  //          //Loop through the data and store
+  //          //it in array to display
+  //          querySnapshot.forEach((doc) => {
+  //            //var data = element.data();
+  //            var data=doc.data().clientname;
+  //            var data1=doc.data().contact;
+  //            setClientname((arr) => [...arr, data]);
+  //            setContact((arr) => [...arr, data1]);
+  //            //console.log(doc.data().clientname);
+  //          });
+  //       });
+  //    }, [],);
+
+  useEffect(() => {
+    db.collection("caseID")
+      .get()
+      .then((querySnapshot) => {
+        //Loop through the data and store
+        //it in array to display
+        querySnapshot.forEach((doc) => {
+          //var data = element.data();
+          const data = doc.data().idvalue;
+          setClientId("22000" + data);
+
+          // setClientId((arr)  [...arr, data]);
+          switch (data.length) {
+            case 3:
+              setClientId("220" + data);
+              break;
+            case 2:
+              setClientId("2200" + data);
+              break;
+            case 1:
+              setClientId("22000" + data);
+              break;
+            // default:
+            //   setClientId("Hellloo");
+          }
+        });
       });
-   }, []);
-//  useEffect(()=>{
-//   db.collection("example")
-//   .get()
-//   .then((snapshot) => {
-//     snapshot.docs.forEach((doc) => {
-//       //console.log(" hellooooo", doc.data().clientname);
-       
-       
-//       setClientname(doc.data().clientname);
-//     });
-//   });
-//  });
-
-  
-
+  });
 
   const handleClick1 = () => {
     //adding textfield data to firestore collection
@@ -93,17 +108,14 @@ useEffect(() => {
       });
 
     //incrementing firestore field value after every click
-    const increment=firebase.firestore.FieldValue.increment(1);
-    const statsref=db.collection('caseID').doc('counter')
-    const batch=db.batch();
-    batch.set(statsref,{idvalue: increment},{merge: true});
+    const increment = firebase.firestore.FieldValue.increment(1);
+    const statsref = db.collection("caseID").doc("counter");
+    const batch = db.batch();
+    batch.set(statsref, { idvalue: increment }, { merge: true });
     batch.commit();
   };
-  
 
   const handleClick2 = () => {
-
-    
     //read data from firestore
 
     db.collection("caseID")
@@ -111,14 +123,14 @@ useEffect(() => {
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
           console.log(" hellooooo", doc.data().idvalue);
-           const a1=(doc.data().idvalue);
-           
-           setClientId("22000" +  parseInt(a1+1));
+          const a1 = doc.data().idvalue;
+
+          setClientId("22000" + parseInt(a1 + 1));
         });
       });
     console.log(clientid);
   };
-  
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
   };

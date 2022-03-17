@@ -11,7 +11,8 @@ import {
   InputLabel,
   makeStyles,
 } from "@material-ui/core";
-import {getDocs,where,query,querysnapshot,collectionGroup,collection} from "firebase/firestore";
+import { collection, getDocs,query } from "firebase/firestore";
+//import {getDocs,where,query,querysnapshot,collectionGroup,collection} from "firebase/firestore";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -33,61 +34,67 @@ function CreateUserForm() {
   const [district, setDistrict] = useState("");
   const [year, setYear] = useState("");
   const [courthall, setCourtHall] = useState("");
+  const [courtcomplex,setCourtComplex]=useState("");
   const [dateof, setDateof] = useState("");
   const [casetype, setCasetype] = useState("");
   const [hear, setHear] = useState("");
   const [info, setInfo] = useState([]);
 
   
-  const handleStateChange=(e)=>{
-    
-    // console.log({myStatelists});
-    // const q = query(collection(db, "ComplexMaster"), where("Complex1", "==", true));
+  const handleChange=async(e)=>{
+    db.collection("District").where("state","==","Karnataka")
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          console.log(" hellooooo", doc.data());
+           
+           
+           
+        });
+      });
+    //console.log(clientid);
+ 
+}
+  
 
-    // const querySnapshot = await  getDocs(q);
-    // querySnapshot.forEach((doc) => {
-    // // doc.data() is never undefined for query doc snapshots
-    // console.log(doc.id, " => ", doc.data());
-// });
-
     
-};
+
 
   
   
 
   const myStatelists=['State 1', 'State 2','State 3','State 4'];
+
   const listStateitems=myStatelists.map((myStatelists)=><li>{myStatelists}</li>)
   
-  const myDistrictlists=['Dist 1', 'Dist 2','Dist 3','Dist 4'];
-  const listDistrictitems=myDistrictlists.map((myDistrictlists)=><li>{myDistrictlists}</li>)
+  
   
   
   
   const handleSubmit = (evt) => {
-    evt.preventDefault();
+    evt.preventDefault()};
     
-    const userData = {
-      casenumber: casenumber,
+    const click1=()=>{
+      db.collection("casefiles")
+      .add({
+        casenumber: casenumber,
       state: state,
       clientid: clientid,
       district: district,
       year: year,
       courthall: courthall,
+      courtcomplex:courtcomplex,
       dateof: dateof,
       casetype: casetype,
       hear: hear,
-    };
-    // db.collection("District")
-    //   .get()
-    //   .then((snapshot) => {
-    //     snapshot.docs.forEach((doc) => {
-    //       console.log(" hellooooo", doc.data().A);
-    //        //const a1=(doc.data().idvalue);
-           
-    //        setDistrict("hello",doc.data().A);
-    //     });
-    //   });
+      })
+      .then((docRef) => {
+        alert("Data Successfully Submitted");
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
+    
     
   };
     
@@ -111,6 +118,7 @@ function CreateUserForm() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Button
+              onClick={click1}
                 style={{ height: "40px", width: "130px" }}
                 variant="contained"
                 type="submit"
@@ -192,6 +200,7 @@ function CreateUserForm() {
                 </Select>
               </FormControl>
             </Grid>
+            
             <Grid item xs={12} sm={6}>
               <TextField
                 style={{ width: "100%" }}
@@ -209,8 +218,8 @@ function CreateUserForm() {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
-                  value={courthall}
-                  onChange={(e) => setCourtHall(e.target.value)}
+                  value={courtcomplex}
+                  onChange={(e) => setCourtComplex(e.target.value)}
                   label="District"
                 >
                   <MenuItem value="">
@@ -222,6 +231,29 @@ function CreateUserForm() {
                 </Select>
               </FormControl>
             </Grid>
+            <Grid item xs={12} sm={6}>
+            <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="demo-simple-select-outlined-label">
+                  Select Court Hall
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={courthall}
+                  
+                  onChange={(e) => setCourtHall(e.target.value)}
+                  label="Age"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value="belgum">ABA</MenuItem>
+                  <MenuItem value="banglore">PQR</MenuItem>
+                  <MenuItem value="Hasan">WWW</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+
 
             <Grid item xs={12} sm={6}>
               <TextField

@@ -7,81 +7,115 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import UserCard from '../components/UserCard';
 import db from '../firebase';
 import { DataGrid } from "@material-ui/data-grid";
+import EditIcon from "@material-ui/icons/Edit";
+import {collection,query,where} from "firebase/firestore";
+
+import {
+    Box,
+    
+    makeStyles,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    withStyles,
+  } from "@material-ui/core";
 //import { PieChart, Pie } from "recharts";
 
-
-// const data = [
-//     { name: "Geeksforgeeks", students: 400 },
-//     { name: "Technical scripter", students: 700 },
-// ];
-
-
-const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    {
-        field: "User Name",
-        headerName: "Court name",
-        width: 150,
-        
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: "#607d8b",
+      color: theme.palette.common.white,
     },
-    {
-        field: "EmailId",
-        headerName: "Court rank",
-        width: 200,
+    body: {
+      fontSize: 14,
     },
-    {
-        field: "Entity",
-        headerName: "Court hall",
-        width: 150,
+  }))(TableCell);
+  
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      "&:nth-of-type(odd)": {
+        backgroundColor: theme.palette.action.hover,
+      },
     },
-    {
-        field: "Role",
-        headerName: "Court location",
-        width: 200,
+  }))(TableRow);
+  
+  function createData( Cid, Cname, Ccontact, Cemail, client,Husname,edit) {
+    return {  Cid, Cname, Ccontact, Cemail, client,Husname,edit };
+  }
+  
+  const rows = [
+    createData(1, 111, 6.0, 'gmail@gmail', "Dynamec", 6.0),
+    createData(2, 222, 9.0, 'viki@gmail', "wired", 33),
+    createData(3, 333, 262, 'rock@gmail', "roller", 6.0),
+    createData(4, 444, 262,'yuv@gmail' ,"motor", 6.0),
+    createData(5, 555, 305, 'kit@gmail', "driller", 4.3),
+    
+  ];
+  
+  const useStyles = makeStyles({
+    table: {
+      minWidth: 900,
     },
+    paper: {
+      textAlign: "center",
+      width: "100%",
+      padding: "10px",
+      backgroundColor: "gray",
+    },
+    tm: {
+      marginTop: 30,
+    },
+    rootcol: {
+      "& .header-name": {
+        backgroundColor: "#8860CD",
+        fontSize: 17,
+        fontFamily: "Poppins Regular",
+        fontStyle: "bold",
+      },
+    },
+  });
+  
 
-];
-const rows = [
-    { id: 1, UserName: 'Snow', EmailId: 'Jon', Entity: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
 
-];
+
 
 
 function User() {
     const history = useHistory();
-    const [info, setInfo] = useState([]);
+    const [info1, setInfo1] = useState([]);
+    const [name,setName]=useState([]);
+  
+  
+  const classes = useStyles();
 
-    useEffect(() => {
+  
 
-        db.collection("user").get().then((querySnapshot) => {
-            // Loop through the data and store
-            // it in array to display
-            querySnapshot.forEach(element => {
-                var data = element.data();
-                setInfo(arr => [...arr, data]);
-            });
-        })
+    // useEffect(() => {
 
-    }, [])
+    //     db.collection("casefiles").get().then((querySnapshot) => {
+    //         // Loop through the data and store
+    //         // it in array to display
+    //         querySnapshot.forEach(doc => {
+    //             var data = doc.data().caseid;
+    //             setInfo1(data);
+    //             // setInfo(arr => [...arr, data]);
+    //         });
+    //     })
 
-    const handleDelete = async (id) => {
-        if (window.confirm("Are you sure to delete this record")) {
-            alert(id)
-            db.collection("user").where("UserName", "==", id).get()
-                .then(querySnapshot => { querySnapshot.docs[0].ref.delete() });
-        };
-        const newUser = info.filter(note => note.UserName !== id)
-        setInfo(newUser)
+    // }, [])
 
-        //     await fetch('https://nov22-3c43a-default-rtdb.firebaseio.com/devices.json' + id, {
-        //         method: 'DELETE'
-        //     })
-        //     const newDevices = alldevices.filter(note => note.id != id)
-        //     setAllDevices(newDevices)
-    }
+    // const handleDelete = async (id) => {
+    //     if (window.confirm("Are you sure to delete this record")) {
+    //         alert(id)
+    //         db.collection("user").where("UserName", "==", id).get()
+    //             .then(querySnapshot => { querySnapshot.docs[0].ref.delete() });
+    //     };
+        
+    // }
 
     return (
         <>
@@ -101,9 +135,99 @@ function User() {
 
                     <Grid item xs={10} >
                      <div style={{ height: 400, width: '100%' }}> 
-                        <DataGrid width={100} rows={info}  columns={columns} pageSize={5} />
+                        {/* <DataGrid width={100} rows={info}  columns={columns} pageSize={5} /> */}
+                        <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                     {/* <StyledTableCell>View</StyledTableCell>  */}
+                    <StyledTableCell>Case Id </StyledTableCell>
+                    <StyledTableCell>Client name</StyledTableCell>
+                    <StyledTableCell>Client contact</StyledTableCell>
+                    <StyledTableCell>Client Email_id</StyledTableCell>
+                    <StyledTableCell>Father name</StyledTableCell>
+                    <StyledTableCell>Husband name</StyledTableCell>
+                    <StyledTableCell>Edit</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <StyledTableRow >
+                       {/* <StyledTableCell component="th" scope="row">
+                        <Box display="flex">
+                          {/* <Box>
+                        {row.view}
+                        </Box>  */}
+                          {/* <Button onClick={() => history.push("/devicedetail")}>
+                            <VisibilityIcon />
+                          </Button> */}
+                        {/* </Box> */}
+                      {/* </StyledTableCell>  */} 
+                      <StyledTableCell>{row.Cid}</StyledTableCell>
+                      <StyledTableCell>{row.Cname}</StyledTableCell>
+                      <StyledTableCell>{row.Ccontact}</StyledTableCell>
+                      <StyledTableCell>{row.Cemail}</StyledTableCell>
+                      <StyledTableCell>{row.client}</StyledTableCell>
+                      <StyledTableCell>{row.Husname}</StyledTableCell>
+                      <StyledTableCell>
+                        <Box display="flex">
+                          <Box>
+                            <Button  >
+                            <EditIcon />
+                            </Button>
+                          </Box>
+                        </Box>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+
                          </div> 
                     </Grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+
                     
                     
                       
