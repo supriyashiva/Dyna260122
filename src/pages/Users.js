@@ -86,27 +86,26 @@ const StyledTableCell = withStyles((theme) => ({
 
 function User() {
     const history = useHistory();
-    const [info1, setInfo1] = useState([]);
-    const [name,setName]=useState([]);
-  
+    const [info1, setInfo1] = useState("");
+    const [name,setName]=useState("");
+    const [customersData, setCustomersData] = useState([]);
+
   
   const classes = useStyles();
 
   
 
-    // useEffect(() => {
-
-    //     db.collection("casefiles").get().then((querySnapshot) => {
-    //         // Loop through the data and store
-    //         // it in array to display
-    //         querySnapshot.forEach(doc => {
-    //             var data = doc.data().caseid;
-    //             setInfo1(data);
-    //             // setInfo(arr => [...arr, data]);
-    //         });
-    //     })
-
-    // }, [])
+  useEffect(() => {
+    db.collection("casefiles").onSnapshot((snapshot) => {
+      setInfo1(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data().clientid,
+        }))
+      );
+    });
+    console.log({ info1 });
+  }, []);
 
     // const handleDelete = async (id) => {
     //     if (window.confirm("Are you sure to delete this record")) {
@@ -150,9 +149,9 @@ function User() {
                     <StyledTableCell>Edit</StyledTableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>
-                  {rows.map((row) => (
-                    <StyledTableRow >
+                <TableBody >
+                  {customersData?.map(({ id, data }) => (
+                    <StyledTableRow key={id}>
                        {/* <StyledTableCell component="th" scope="row">
                         <Box display="flex">
                           {/* <Box>
@@ -163,12 +162,12 @@ function User() {
                           </Button> */}
                         {/* </Box> */}
                       {/* </StyledTableCell>  */} 
-                      <StyledTableCell>{row.Cid}</StyledTableCell>
-                      <StyledTableCell>{row.Cname}</StyledTableCell>
-                      <StyledTableCell>{row.Ccontact}</StyledTableCell>
+                      <StyledTableCell>{data.info1}</StyledTableCell>
+                      <StyledTableCell>{data.casetype}</StyledTableCell>
+                      {/* <StyledTableCell>{row.Ccontact}</StyledTableCell>
                       <StyledTableCell>{row.Cemail}</StyledTableCell>
                       <StyledTableCell>{row.client}</StyledTableCell>
-                      <StyledTableCell>{row.Husname}</StyledTableCell>
+                      <StyledTableCell>{row.Husname}</StyledTableCell> */}
                       <StyledTableCell>
                         <Box display="flex">
                           <Box>

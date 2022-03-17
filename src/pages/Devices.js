@@ -96,6 +96,7 @@ function Devices() {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
+        
          const data1 = doc.data().clientid;
         const data2 = doc.data().clientname;
         const data3 = doc.data().contact;
