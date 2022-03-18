@@ -43,18 +43,9 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(Cid, Cname, Ccontact, Cemail,fathername,  Husname, edit) {
-  return { Cid, Cname, Ccontact, Cemail, fathername, Husname, edit };
-}
 
-const rows = [
-    
-    createData(1, 111, 99003456, "gmail@gmail", "Dynamec", 6.0),
-    createData(2, 222, 9.0, "viki@gmail", "wired", 33),
-    createData(3, 333, 262, 'rock@gmail', "roller", 6.0),
-    createData(4, 444, 262,'yuv@gmail' ,"motor", 6.0),
-    createData(5, 555, 305, 'kit@gmail', "driller", 4.3),
- ];
+
+
  
 
 const useStyles = makeStyles({
@@ -88,31 +79,26 @@ function Devices() {
   const [contact, setContact] = useState([]);
   const [mail, setMail] = useState([]);
   const [fname, setFname] = useState([]);
-  
-  
-    useEffect(()=>{
-  
-    db.collection("example")
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        
-         const data1 = doc.data().clientid;
-        const data2 = doc.data().clientname;
-        const data3 = doc.data().contact;
-        const data4 = doc.data().dateinstalled;
-        const data5 = doc.data().farmeraddress;
-        
-        setInfo((arr) => [...arr, data1]);
-        setName((arr) => [...arr, data2]);
-        setContact((arr) => [...arr, data3]);
-        setMail((arr) => [...arr, data4]);
-        setFname((arr) => [...arr, data5]);
-        
-      });
-    });
-  }, []);
+  const [customersData, setCustomersData] = useState([]);
 
+  useEffect(() => {
+    db.collection("example").onSnapshot((snapshot) => {
+      setCustomersData(
+        snapshot.docs.map((doc) => ({
+          // Cid, Cname, Ccontact, Cemail,fathername,  Husname, edit
+          id: doc.id,
+          data: doc.data(),
+          
+          
+          
+        })),
+        
+      );
+    });
+     console.log({ customersData });
+  }, []);
+  
+  
   
   return (
     <>
@@ -152,29 +138,18 @@ function Devices() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {customersData?.map(({ id, data }) => (
                     <StyledTableRow>
-                      {/* <StyledTableCell component="th" scope="row">
-                        <Box display="flex">
-                          <Box>
-                        {row.Cid}
-                        </Box> 
-                          <Button onClick={() => history.push("/devicedetail")}>
-                            <VisibilityIcon />
-                          </Button> 
-                        </Box> 
-                       </StyledTableCell>   */}
                        
-                      <StyledTableCell>{info}</StyledTableCell>
-                      <StyledTableCell>{name}</StyledTableCell>
-                      <StyledTableCell>{contact}</StyledTableCell>
-                      <StyledTableCell>{row.Cemail}</StyledTableCell>
-                      <StyledTableCell>{row.fathername}</StyledTableCell>
+                      <StyledTableCell>{data.clientid}</StyledTableCell>
+                      <StyledTableCell>{data.clientname}</StyledTableCell>
+                      <StyledTableCell>{data.clientcontact}</StyledTableCell>
+                      <StyledTableCell>{data.dateinstalled}</StyledTableCell>
+                      <StyledTableCell>{data.farmeraddress}</StyledTableCell>
                       
-                      <StyledTableCell>{row.Husname}</StyledTableCell>
+                      <StyledTableCell>{data.client}</StyledTableCell> 
                        
-                      {/* <StyledTableCell>{row.client}</StyledTableCell>
-                      <StyledTableCell>{row.Husname}</StyledTableCell> */}
+                       
                       <StyledTableCell>
                         <Box display="flex">
                           <Box>
@@ -190,34 +165,8 @@ function Devices() {
               </Table>
             </TableContainer>
           </Grid>
-          {/* </div> */}
-          {/* <Grid item xs={2} >
-
-                        <PieChart width={200} height={400}>
-                            <Pie
-                                data={data}
-                                cx="50%"
-                                cy="50%"
-                                dataKey="num"
-                                outerRadius={100}
-                                labelLine={false}
-                                label={renderCustomizedLabel}
-                            >
-                                {data.map((entry, index) => (
-                                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                            </Pie>
-                            <Tooltip />
-                        </PieChart>
-                    </Grid> */}
-
-          <div className={classes.tm}>
-            {info.map((item) => (
-              <Grid item lg={2} key={info.iimei}>
-                {/* <DeviceCard data={item} handleDelete={handleDelete} /> */}
-              </Grid>
-            ))}
-          </div>
+          
+          
         </Grid>
       </Container>
     </>

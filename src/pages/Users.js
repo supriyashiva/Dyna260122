@@ -88,7 +88,7 @@ function User() {
     const history = useHistory();
     const [info1, setInfo1] = useState("");
     const [name,setName]=useState("");
-    const [customersData, setCustomersData] = useState([]);
+    const [createData, setCreateData] = useState([]);
 
   
   const classes = useStyles();
@@ -100,11 +100,12 @@ function User() {
       setInfo1(
         snapshot.docs.map((doc) => ({
           id: doc.id,
-          data: doc.data().clientid,
+          data: doc.data(),
         }))
       );
     });
-    console.log({ info1 });
+    //console.log({ info1 });
+    //console.log(data);
   }, []);
 
     // const handleDelete = async (id) => {
@@ -150,8 +151,8 @@ function User() {
                   </TableRow>
                 </TableHead>
                 <TableBody >
-                  {customersData?.map(({ id, data }) => (
-                    <StyledTableRow key={id}>
+                  {createData?.map(({ id, data }) => (
+                    <StyledTableRow key={info1}>
                        {/* <StyledTableCell component="th" scope="row">
                         <Box display="flex">
                           {/* <Box>

@@ -11,7 +11,7 @@ import {
   InputLabel,
   makeStyles,
 } from "@material-ui/core";
-import { collection, getDocs,query } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 //import {getDocs,where,query,querysnapshot,collectionGroup,collection} from "firebase/firestore";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CreateUserForm() {
-  
   const classes = useStyles();
   const history = useHistory();
   const [casenumber, setCaseNumber] = useState("");
@@ -34,59 +33,75 @@ function CreateUserForm() {
   const [district, setDistrict] = useState("");
   const [year, setYear] = useState("");
   const [courthall, setCourtHall] = useState("");
-  const [courtcomplex,setCourtComplex]=useState("");
+  const [courtcomplex, setCourtComplex] = useState("");
   const [dateof, setDateof] = useState("");
   const [casetype, setCasetype] = useState("");
   const [hear, setHear] = useState("");
   const [info, setInfo] = useState([]);
 
-  
-  const handleChange=async(e)=>{
-    db.collection("District").where("state","==","Karnataka")
+  const [statesData, setStatesData] = useState([]);
+  const [districtData, setDistrictData] = useState([]);
+
+
+  useEffect(() => {
+    db.collection("StateMaster").onSnapshot((snapshot) => {
+      setStatesData(
+        snapshot.docs.map((doc) => ({
+          // Cid, Cname, Ccontact, Cemail,fathername,  Husname, edit
+          id: doc.id,
+          data: doc.data(),
+        }))
+      );
+    });
+    // db.collection("StateMaster")
+    //   .get()
+    //   .then((snapshot) => {
+    //     snapshot.forEach((doc) => {
+    //       console.log(doc.id);
+    //     });
+    //   });
+  });
+  const OnStateSelect = (value) => {
+    console.log(value);
+    db.collection("District")
+      .where("State", "==", "Karnataka")
       .get()
       .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          console.log(" hellooooo", doc.data());
-           
-           
-           
+        setDistrictData(
+          snapshot.docs.map((doc) => ({
+            // Cid, Cname, Ccontact, Cemail,fathername,  Husname, edit
+            id: doc.id,
+            data: doc.data(),
+          }))
+        );
         });
-      });
-    //console.log(clientid);
- 
-}
-  
+    console.log(doc.id);
+  };
 
-    
+  const myStatelists = ["State 1", "State 2", "State 3", "State 4"];
 
+  const listStateitems = myStatelists.map((myStatelists) => (
+    <li>{myStatelists}</li>
+  ));
 
-  
-  
-
-  const myStatelists=['State 1', 'State 2','State 3','State 4'];
-
-  const listStateitems=myStatelists.map((myStatelists)=><li>{myStatelists}</li>)
-  
-  
-  
-  
-  
   const handleSubmit = (evt) => {
-    evt.preventDefault()};
-    
-    const click1=()=>{
-      db.collection("casefiles")
+    evt.preventDefault();
+  };
+
+  const click1 = () => {
+    db.collection("casefiles")
       .add({
         casenumber: casenumber,
-      state: state,
-      clientid: clientid,
-      district: district,
-      year: year,
-      courthall: courthall,
-      courtcomplex:courtcomplex,
-      dateof: dateof,
-      casetype: casetype,
-      hear: hear,
+        state: state,
+        clientid: clientid,
+        district: district,
+        year: year,
+        courthall: courthall,
+        courtcomplex: courtcomplex,
+        dateof: dateof,
+        casetype: casetype,
+        hear: hear,
+        id: clientid,
       })
       .then((docRef) => {
         alert("Data Successfully Submitted");
@@ -94,11 +109,8 @@ function CreateUserForm() {
       .catch((error) => {
         console.error("Error adding document: ", error);
       });
-    
-    
   };
-    
-  
+
   return (
     <>
       <Container maxWidth="md">
@@ -118,17 +130,14 @@ function CreateUserForm() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Button
-              onClick={click1}
+                onClick={click1}
                 style={{ height: "40px", width: "130px" }}
                 variant="contained"
                 type="submit"
                 color="secondary"
-                
               >
                 Save
               </Button>
-              
-              
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl variant="outlined" className={classes.formControl}>
@@ -138,22 +147,23 @@ function CreateUserForm() {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
-                   value={state}
-                   
-                   onChange={(e) => setState(e.target.value)}
-                   //onChange={handleStateChange}
-                   
-                   
-                  
+                  // value={state}
+                  // onChange={(e) => setState(e.target.value)}
                 >
-                  
-                  
-                  <MenuItem value="list">
-                    {myStatelists[0]}
-                  </MenuItem>
+                  {statesData?.map(({ id, data }) => (
+                    <MenuItem
+                      key={id}
+                      value={id}
+                      // visibleMenu={visible === index ? true : false}
+                      onClick={() => OnStateSelect(id)}
+                    >
+                      {id}
+                    </MenuItem>
+                  ))}
+                  {/* <MenuItem value="list">{myStatelists[0]}</MenuItem>
                   <MenuItem value="karnataka">{myStatelists[1]}</MenuItem>
                   <MenuItem value="Maharashtra">{myStatelists[2]}</MenuItem>
-                  <MenuItem value="Andra">{myStatelists[3]}</MenuItem>
+                  <MenuItem value="Andra">{myStatelists[3]}</MenuItem> */}
                 </Select>
               </FormControl>
             </Grid>
@@ -179,7 +189,7 @@ function CreateUserForm() {
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
-            <FormControl variant="outlined" className={classes.formControl}>
+              <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="demo-simple-select-outlined-label">
                   Select District
                 </InputLabel>
@@ -187,7 +197,6 @@ function CreateUserForm() {
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
                   value={district}
-                  
                   onChange={(e) => setDistrict(e.target.value)}
                   label="Age"
                 >
@@ -200,7 +209,7 @@ function CreateUserForm() {
                 </Select>
               </FormControl>
             </Grid>
-            
+
             <Grid item xs={12} sm={6}>
               <TextField
                 style={{ width: "100%" }}
@@ -225,14 +234,20 @@ function CreateUserForm() {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value="court of small cases">Chief Judge,court of small causes</MenuItem>
-                  <MenuItem value="CMM court banglore">Chief Metropolitian magistrate CMM court banglore</MenuItem>
-                  <MenuItem value="Mayo Hall">ADD small causes Court judges MAYO Hall</MenuItem>
+                  <MenuItem value="court of small cases">
+                    Chief Judge,court of small causes
+                  </MenuItem>
+                  <MenuItem value="CMM court banglore">
+                    Chief Metropolitian magistrate CMM court banglore
+                  </MenuItem>
+                  <MenuItem value="Mayo Hall">
+                    ADD small causes Court judges MAYO Hall
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
-            <FormControl variant="outlined" className={classes.formControl}>
+              <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="demo-simple-select-outlined-label">
                   Select Court Hall
                 </InputLabel>
@@ -240,7 +255,6 @@ function CreateUserForm() {
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
                   value={courthall}
-                  
                   onChange={(e) => setCourtHall(e.target.value)}
                   label="Age"
                 >
@@ -253,7 +267,6 @@ function CreateUserForm() {
                 </Select>
               </FormControl>
             </Grid>
-
 
             <Grid item xs={12} sm={6}>
               <TextField
@@ -300,5 +313,5 @@ function CreateUserForm() {
       </Container>
     </>
   );
-  }
+}
 export default CreateUserForm;
