@@ -38,11 +38,15 @@ function CreateUserForm() {
   const [casetype, setCasetype] = useState("");
   const [hear, setHear] = useState("");
   const [info, setInfo] = useState([]);
-
+////
   const [statesData, setStatesData] = useState([]);
   const [districtData, setDistrictData] = useState([]);
-
-
+  const [complexData, setComplexData] = useState([]);
+  const [idData,setIdData]=useState([]);
+  ////
+  const[caseError,setCaseError]=useState(false);
+  const[stateError,setStateError]=useState(false);
+  const[clientidError,setClientidError]=useState(false);
   useEffect(() => {
     db.collection("StateMaster").onSnapshot((snapshot) => {
       setStatesData(
@@ -62,21 +66,68 @@ function CreateUserForm() {
     //   });
   });
   const OnStateSelect = (value) => {
-    console.log(value);
-    db.collection("District")
-      .where("State", "==", "Karnataka")
+    console.log("Selected State : " +value);
+    db.collection("DistrictMaster")
+      .where("State", "==", value)
       .get()
       .then((snapshot) => {
         setDistrictData(
           snapshot.docs.map((doc) => ({
-            // Cid, Cname, Ccontact, Cemail,fathername,  Husname, edit
             id: doc.id,
             data: doc.data(),
           }))
         );
         });
-    console.log(doc.id);
+   
   };
+  const OnDistrictSelect = (value) => {
+    console.log("Selected District : " +value);
+    db.collection("ComplexMaster")
+      .where("District", "==", value)
+      .get()
+      .then((snapshot) => {
+        
+        setComplexData(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        );
+        });
+  };
+  const OnComplexSelect = (value) => {
+    console.log("Selected Complex : " +value);
+    db.collection("ComplexMaster")
+      .where("State", "==", value)
+      .get()
+      .then((snapshot) => {
+        
+        setComplexData(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          })),
+        );
+        });
+  };
+  const OnIdSelect = () => {
+    console.log("selected id ");
+    // db.collection("ClientMaster")
+    //   .where("Clientid", "==", value)
+    //   .get()
+    //   .then((snapshot) => {
+    //     setIdData(
+    //       snapshot.docs.map((doc) => ({
+    //         id: doc.id,
+    //         data: doc.data(),
+    //       }))
+    //     );
+    //     });
+   
+  };
+  
+  
+
 
   const myStatelists = ["State 1", "State 2", "State 3", "State 4"];
 
@@ -89,27 +140,43 @@ function CreateUserForm() {
   };
 
   const click1 = () => {
-    db.collection("casefiles")
-      .add({
-        casenumber: casenumber,
-        state: state,
-        clientid: clientid,
-        district: district,
-        year: year,
-        courthall: courthall,
-        courtcomplex: courtcomplex,
-        dateof: dateof,
-        casetype: casetype,
-        hear: hear,
-        id: clientid,
-      })
-      .then((docRef) => {
-        alert("Data Successfully Submitted");
-      })
-      .catch((error) => {
-        console.error("Error adding document: ", error);
-      });
-  };
+    console.log("clicking on this button");
+    setCaseError(false);
+    setStateError(false);
+    setClientidError(false);
+    if(casenumber=='')
+    {
+      setCaseError(true);
+    }
+    if(state==''){
+      setStateError(true);
+    }
+    if(clientid==''){
+      setClientidError(true);
+    }
+    //.....Adding data to firestore database//
+  //   db.collection("casefiles")
+  //     .add({
+  //       casenumber: casenumber,
+  //       state: state,
+  //       clientid: clientid,
+  //       district: district,
+  //       year: year,
+        
+  //       courtcomplex: courtcomplex,
+  //       courthall: courthall,
+  //       dateof: dateof,
+  //       casetype: casetype,
+  //       hear: hear,
+        
+  //     })
+  //     .then((docRef) => {
+  //       alert("Data Successfully Submitted");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error adding document: ", error);
+  //     });
+   };
 
   return (
     <>
@@ -125,6 +192,7 @@ function CreateUserForm() {
                 id="casenumber"
                 label="Case Number"
                 variant="outlined"
+                error={caseError}
                 onChange={(e) => setCaseNumber(e.target.value)}
               />
             </Grid>
@@ -145,6 +213,7 @@ function CreateUserForm() {
                   Select State
                 </InputLabel>
                 <Select
+                 error={stateError}
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
                   // value={state}
@@ -154,7 +223,7 @@ function CreateUserForm() {
                     <MenuItem
                       key={id}
                       value={id}
-                      // visibleMenu={visible === index ? true : false}
+                      
                       onClick={() => OnStateSelect(id)}
                     >
                       {id}
@@ -175,16 +244,27 @@ function CreateUserForm() {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
-                  value={clientid}
-                  onChange={(e) => setClientid(e.target.value)}
-                  label="Age"
+                  // value={clientid}
+                  //onChange={(e) => setClientid(e.target.value)}
+                  // error={clientidError}
                 >
-                  <MenuItem value="">
+                  {idData?.map(({ id, data }) => (
+                    <MenuItem
+                      key={id}
+                      value={id}
+                     
+                      onClick={() => OnIdSelect(id)}
+                    >
+                      {id}
+                    </MenuItem>
+                  ))}
+
+                  {/* <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
                   <MenuItem value={10}>10</MenuItem>
                   <MenuItem value={20}>20</MenuItem>
-                  <MenuItem value={30}>30</MenuItem>
+                  <MenuItem value={30}>30</MenuItem> */}
                 </Select>
               </FormControl>
             </Grid>
@@ -200,12 +280,22 @@ function CreateUserForm() {
                   onChange={(e) => setDistrict(e.target.value)}
                   label="Age"
                 >
-                  <MenuItem value="">
+                  <MenuItem> Select District</MenuItem>
+                  {districtData?.map(({ id, data }) => (
+                    <MenuItem
+                      key={id}
+                      value={id}
+                      onClick={() => OnDistrictSelect(id)}
+                    >
+                      {id}
+                    </MenuItem>
+                  ))}
+                  {/* <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
                   <MenuItem value="belgum">belgam</MenuItem>
                   <MenuItem value="banglore">banglore</MenuItem>
-                  <MenuItem value="Hasan">Hasan</MenuItem>
+                  <MenuItem value="Hasan">Hasan</MenuItem> */}
                 </Select>
               </FormControl>
             </Grid>
@@ -231,7 +321,17 @@ function CreateUserForm() {
                   onChange={(e) => setCourtComplex(e.target.value)}
                   label="District"
                 >
-                  <MenuItem value="">
+                  <MenuItem> Select District</MenuItem>
+                  {complexData?.map(({ id, data }) => (
+                    <MenuItem
+                      key={id}
+                      value={id}
+                      onClick={() => OnComplexSelect(id)}
+                    >
+                      {id}
+                    </MenuItem>
+                  ))}
+                  {/* <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
                   <MenuItem value="court of small cases">
@@ -242,7 +342,7 @@ function CreateUserForm() {
                   </MenuItem>
                   <MenuItem value="Mayo Hall">
                     ADD small causes Court judges MAYO Hall
-                  </MenuItem>
+                  </MenuItem> */}
                 </Select>
               </FormControl>
             </Grid>

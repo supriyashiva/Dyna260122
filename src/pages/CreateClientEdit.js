@@ -46,9 +46,18 @@ useEffect(() => {
          querySnapshot.forEach((doc) => {
            //var data = element.data();
            var data=doc.data().clientname;
-           var data1=doc.data().contact;
-           setClientname((arr) => [...arr, data]);
-           setContact((arr) => [...arr, data1]);
+           var data1=doc.data().client;
+           var data2=doc.data().clientaddress
+           var data3=doc.data().farmeraddress
+           var data4=doc.data().contact
+           setClientname(data);
+           setClient(data1);
+           setClientAddress(data2)
+           setFarmerAddress(data3);
+
+
+           //setClientname((arr) => [...arr, data]);
+           //setContact((arr) => [...arr, data1]);
            //console.log(doc.data().clientname);
          });
       });
@@ -93,18 +102,31 @@ useEffect(() => {
   
 
   const handleClick2 = () => {
-
+  
     
     //read data from firestore
-
+     
     db.collection("caseID")
       .get()
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
           console.log(" hellooooo", doc.data().idvalue);
-           const a1=(doc.data().idvalue);
-           
-           setClientId("22000" +  parseInt(a1+1));
+           var data=doc.data().idvalue;
+           data = data.toString();
+          //  setClientId("22000" +  parseInt(data));
+          switch (data.length) {
+            case 3:
+              setClientId("220" + data);
+              break;
+            case 2:
+              setClientId("2200" + data);
+              break;
+            case 1:
+              setClientId("22000" + data);
+              break;
+            default:
+              setClientId("Hellloo");
+          }
         });
       });
     console.log(clientid);

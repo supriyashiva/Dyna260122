@@ -43,18 +43,18 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }))(TableRow);
   
-  function createData( Cid, Cname, Ccontact, Cemail, client,Husname,edit) {
-    return {  Cid, Cname, Ccontact, Cemail, client,Husname,edit };
-  }
+  // function createData( Cid, Cname, Ccontact, Cemail, client,Husname,edit) {
+  //   return {  Cid, Cname, Ccontact, Cemail, client,Husname,edit };
+  // }
   
-  const rows = [
-    createData(1, 111, 6.0, 'gmail@gmail', "Dynamec", 6.0),
-    createData(2, 222, 9.0, 'viki@gmail', "wired", 33),
-    createData(3, 333, 262, 'rock@gmail', "roller", 6.0),
-    createData(4, 444, 262,'yuv@gmail' ,"motor", 6.0),
-    createData(5, 555, 305, 'kit@gmail', "driller", 4.3),
+  // const rows = [
+  //   createData(1, 111, 6.0, 'gmail@gmail', "Dynamec", 6.0),
+  //   createData(2, 222, 9.0, 'viki@gmail', "wired", 33),
+  //   createData(3, 333, 262, 'rock@gmail', "roller", 6.0),
+  //   createData(4, 444, 262,'yuv@gmail' ,"motor", 6.0),
+  //   createData(5, 555, 305, 'kit@gmail', "driller", 4.3),
     
-  ];
+  // ];
   
   const useStyles = makeStyles({
     table: {
@@ -97,14 +97,14 @@ function User() {
 
   useEffect(() => {
     db.collection("casefiles").onSnapshot((snapshot) => {
-      setInfo1(
+      setCreateData(
         snapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data(),
         }))
       );
     });
-    //console.log({ info1 });
+    //console.log({id });
     //console.log(data);
   }, []);
 
@@ -141,18 +141,18 @@ function User() {
                 <TableHead>
                   <TableRow>
                      {/* <StyledTableCell>View</StyledTableCell>  */}
-                    <StyledTableCell>Case Id </StyledTableCell>
-                    <StyledTableCell>Client name</StyledTableCell>
-                    <StyledTableCell>Client contact</StyledTableCell>
-                    <StyledTableCell>Client Email_id</StyledTableCell>
-                    <StyledTableCell>Father name</StyledTableCell>
-                    <StyledTableCell>Husband name</StyledTableCell>
+                    <StyledTableCell>ClientId </StyledTableCell>
+                    <StyledTableCell>Case Number</StyledTableCell>
+                    <StyledTableCell>Year of Case</StyledTableCell>
+                    <StyledTableCell>state</StyledTableCell>
+                    <StyledTableCell>District</StyledTableCell>
+                    <StyledTableCell>Court complex</StyledTableCell>
                     <StyledTableCell>Edit</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody >
                   {createData?.map(({ id, data }) => (
-                    <StyledTableRow key={info1}>
+                    <StyledTableRow >
                        {/* <StyledTableCell component="th" scope="row">
                         <Box display="flex">
                           {/* <Box>
@@ -163,12 +163,12 @@ function User() {
                           </Button> */}
                         {/* </Box> */}
                       {/* </StyledTableCell>  */} 
-                      <StyledTableCell>{data.info1}</StyledTableCell>
-                      <StyledTableCell>{data.casetype}</StyledTableCell>
-                      {/* <StyledTableCell>{row.Ccontact}</StyledTableCell>
-                      <StyledTableCell>{row.Cemail}</StyledTableCell>
-                      <StyledTableCell>{row.client}</StyledTableCell>
-                      <StyledTableCell>{row.Husname}</StyledTableCell> */}
+                      <StyledTableCell>{data.clientid}</StyledTableCell>
+                      <StyledTableCell>{data.casenumber}</StyledTableCell>
+                       <StyledTableCell>{data.year}</StyledTableCell>
+                       <StyledTableCell>{data.state}</StyledTableCell>
+                      <StyledTableCell>{data.district}</StyledTableCell>
+                      <StyledTableCell>{data.courtcomplex}</StyledTableCell>  
                       <StyledTableCell>
                         <Box display="flex">
                           <Box>

@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => {
         drawer: {
             width: drawerWidth,
               backgroundColor:"#009688",
+             
         },
         drawerPaper: {
             width: drawerWidth,
@@ -18,15 +19,18 @@ const useStyles = makeStyles((theme) => {
         title: {
             textAlign:"center",
             fontWeight:"bold",
-            marginTop:"10px",
+            justifyContent:"center",
+            // marginTop:"10px",
             color:"white",
+            
             //  backgroundColor:"#b2dfdb",
-            //  padding: theme.spacing(2),
+              //padding: theme.spacing(2),
         },
 
         appbar: {
             width: `calc(100% - ${drawerWidth}px)`,
             // backgroundColor:"#009688",
+            
         },
         date: {
             flexGrow: 1,

@@ -53,6 +53,7 @@ function Home() {
                     <Route path="/CreateReportform">
                         < CreateReportform/>
                     </Route>
+                    
                     <Route path="/devicedetail">
                         < Devicedetail />
                     </Route>

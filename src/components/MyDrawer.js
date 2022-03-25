@@ -60,16 +60,16 @@ function MyDrawer() {
             classes={{ paper: classes.drawerPaper }}
         >
 
-            <div  style={{backgroundColor:"black",height:"25vh"}}>
-                <Typography variant="h5"  className={classes.title}>Nyayvadi</Typography>
+            <div  style={{backgroundColor:"black"}}>
+                
+                <Typography variant="h5"  className={classes.title}>Nyayvadi </Typography>
                 <Typography variant="h5"  className={classes.title}>Notes</Typography>
-
-
+                
             </div>
 
 
-
-            <List>
+            {/* style={{overflowY:"scroll"}} */}
+            <List >
                 {menuItems.map((item) => (
                     <ListItem
                     style={{display:"flex",flexDirection:"column"}}
