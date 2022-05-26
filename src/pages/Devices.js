@@ -2,7 +2,17 @@ import React, { useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 import MaterialTable from "material-table";
 import Dialog from "@material-ui/core/Dialog";
-import {Box,Grid,makeStyles,Paper,Table,TableBody,TableCell,TableContainer,TableHead,TableRow,
+import {
+  Box,
+  Grid,
+  makeStyles,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   withStyles,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -89,10 +99,9 @@ function Devices() {
           </Grid> */}
 
           <Grid item xs={6}>
-
-          <CustomizedDialogs>
-        <CreateDeviceForm/>
-        </CustomizedDialogs>
+            <CustomizedDialogs>
+              <CreateDeviceForm />
+            </CustomizedDialogs>
 
             {/* <Button
               //onClick={() => history.push("/cdf")}
@@ -112,7 +121,7 @@ function Devices() {
           {/* <div style={{marginBottom:"10px"}}><Searchfield/></div> */}
           {/* <div> */}
           <Grid item xs={11} className={classes.rootcol}>
-            <DataTablenew/>
+            <DataTablenew />
             {/* <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="customized table">
                 <TableHead>
