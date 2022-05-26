@@ -119,8 +119,9 @@ function Devices() {
             </Button>
           </Grid>
           <div className={classes.tm}>
-            <h1></h1>
+            <h1> </h1>
           </div>
+          <Grid item xs={12}> Search</Grid>
           {/* <div> */}
           <Grid item xs={11} className={classes.rootcol}>
             <TableContainer component={Paper}>

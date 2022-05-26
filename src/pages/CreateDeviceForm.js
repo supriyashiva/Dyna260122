@@ -187,9 +187,7 @@ function CreateDeviceForm() {
     // batch.commit();
    };
 
-   const handlesubmit1=()=>{
-     alert('testing..');
-   };
+   
   const handleSubmit = (evt) => {
     evt.preventDefault();
   
@@ -216,7 +214,7 @@ function CreateDeviceForm() {
               /> */}
             </Grid>
             <Grid item xs={12} sm={3}>
-              <Button onClick={handlesubmit1}>Submit</Button>
+              
               <Button
                 onClick={handleClick1}
                 style={{ height: "40px", width: "130px", marginLeft: "80px",marginTop:"10px" }}
